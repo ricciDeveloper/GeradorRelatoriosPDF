@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Relatório de Investidor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gerar Relatório do Investidor</h1>
+        <div class="form-container">
+            <form id="relatorioForm">
+                <div class="form-row">
+                    <label for="leituraAnterior">Leitura Anterior:</label>
+                    <input type="date" id="leituraAnterior" name="leituraAnterior">
+                </div>
+                <div class="form-row">
+                    <label for="leituraAtual">Leitura Atual:</label>
+                    <input type="date" id="leituraAtual" name="leituraAtual">
+                </div>
+                <div class="form-row">
+                    <label for="proximaLeitura">Próxima Leitura:</label>
+                    <input type="date" id="proximaLeitura" name="proximaLeitura">
+                </div>
+                <div class="form-row">
+                    <label for="nomeInvestidor">Nome do Investidor:</label>
+                    <input type="text" id="nomeInvestidor" name="nomeInvestidor">
+                </div>
+                <div class="form-row">
+                    <label for="mesReferencia">Mês de Referência:</label>
+                    <input type="month" id="mesReferencia" name="mesReferencia">
+                </div>
+                <div class="form-row">
+                    <label for="valorLocacao">Valor da Locação:</label>
+                    <input type="number" id="valorLocacao" name="valorLocacao">
+                </div>
+                <div class="form-row">
+                    <label for="faturaCopel">Fatura Copel:</label>
+                    <input type="number" id="faturaCopel" name="faturaCopel">
+                </div>
+                <div class="form-row">
+                    <label for="valorCredito">Valor do Crédito em Conta:</label>
+                    <input type="number" id="valorCredito" name="valorCredito">
+                </div>
+                <div class="form-row">
+                    <label for="valorKwh">Valor do kWh:</label>
+                    <input type="number" id="valorKwh" name="valorKwh">
+                </div>
+                <div class="form-row">
+                    <label for="energiaGerada">Energia Gerada:</label>
+                    <input type="number" id="energiaGerada" name="energiaGerada">
+                </div>
+                <div class="form-row">
+                    <label for="energiaConsumida">Energia Consumida pelo Próprio Investidor:</label>
+                    <input type="number" id="energiaConsumida" name="energiaConsumida">
+                </div>
+                <div class="form-row">
+                    <label for="energiaCooperados">Energia Enviada para Cooperados:</label>
+                    <input type="number" id="energiaCooperados" name="energiaCooperados">
+                </div>
+                <div class="form-row">
+                    <label for="totalConsumido">Total Consumido pelos Cooperados:</label>
+                    <input type="number" id="totalConsumido" name="totalConsumido">
+                </div>
+                <div class="form-row">
+                    <label for="totalAcumulado">Total Acumulado pelos Cooperados (Todos os Períodos):</label>
+                    <input type="number" id="totalAcumulado" name="totalAcumulado">
+                </div>
+                <div id="historicoRecebimento">
+                    <h2>Histórico de Recebimento (R$)</h2>
+                    <div id="recebimentos">
+                        <div class="recebimento">
+                            <label for="mesRecebimento">Mês:</label>
+                            <input type="month" class="mesRecebimento" name="mesRecebimento[]">
+                            <label for="valorRecebido">Valor:</label>
+                            <input type="number" class="valorRecebido" name="valorRecebido[]">
+                            <button type="button" class="deletarRecebimento">Deletar</button>
+                        </div>
+                    </div>
+                    <button type="button" id="adicionarRecebimento">Adicionar Valor</button>
+                </div>
+                <button type="submit">Gerar Relatório PDF</button>
+            </form>
+        </div>
+        <div id="relatorioPreview">
+            <h2>Prévia do Relatório</h2>
+            <div id="conteudoRelatorio"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

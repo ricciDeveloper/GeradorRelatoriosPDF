@@ -1,60 +1,240 @@
 body {
-    font-family: sans-serif;
-    margin: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
 }
 
-.container {
-    display: flex;
-    justify-content: space-between;
-}
-
+/* Estilo da Interface de Entrada */
 .form-container {
-    width: 45%;
+    width: 800px;
+    margin: 0 auto;
+    background-color: #1C2526;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
 }
 
-form {
+.form-container h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.section {
+    margin-top: 20px;
+}
+
+.readings, .values {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.input-group {
     display: flex;
     flex-direction: column;
 }
 
-.form-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-label {
-    font-weight: bold;
-    width: 40%;
-}
-
-input, button {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 55%;
-}
-
-#historicoRecebimento {
-    margin-top: 20px;
-}
-
-.recebimento {
-    display: flex;
-    align-items: center;
+.input-group label {
+    font-size: 12px;
     margin-bottom: 5px;
 }
 
-.deletarRecebimento {
-    background-color: #f44336;
-    color: white;
+.input-group input {
+    padding: 5px;
     border: none;
-    cursor: pointer;
-    margin-left: 5px;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
 }
 
-#relatorioPreview {
-    width: 45%;
-    border: 1px solid #ccc;
+.charts {
+    display: flex;
+    justify-content: space-between;
+}
+
+.chart-box {
+    width: 48%;
+    background-color: #fff;
     padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.chart-box p {
+    color: #333;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.chart-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.chart-controls .input-group {
+    flex: 1;
+}
+
+.chart-controls button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.chart-controls .add-value {
+    background-color: #DC3545;
+    color: white;
+}
+
+.chart-controls .delete-value {
+    background-color: #6C757D;
+    color: white;
+}
+
+.generate-pdf {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #F5A623;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.generate-pdf:hover {
+    background-color: #e69520;
+}
+
+/* Estilo do PDF */
+.pdf-container {
+    width: 800px;
+    background-color: #fff;
+    color: #333;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+.pdf-container .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.pdf-container .title-contact {
+    text-align: right;
+}
+
+.pdf-container .title-contact h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.pdf-container .contact p {
+    margin: 2px 0;
+    font-size: 12px;
+}
+
+.pdf-container .section.readings {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.pdf-container .section.readings .input-group span {
+    background-color: #f0f0f0;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.pdf-container .section.values {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.pdf-container .value-box {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.pdf-container .value-box p {
+    margin: 5px 0;
+    font-size: 12px;
+}
+
+.pdf-container .value-box .highlight {
+    color: #28A745;
+    font-weight: bold;
+}
+
+.pdf-container .section.charts {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pdf-container .chart-box {
+    width: 48%;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.pdf-container .chart-box p {
+    color: #333;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.pdf-container .section.differentials {
+    margin-top: 20px;
+}
+
+.pdf-container .section.differentials h2 {
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.pdf-container .section.differentials {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.pdf-container .differential-box {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.pdf-container .differential-box p {
+    color: #333;
+    font-size: 12px;
+    margin: 5px 0;
+}
+
+.pdf-container .differential-box p strong {
+    font-weight: bold;
+}
+
+.pdf-container .qr-code {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.pdf-container .qr-code p {
+    font-size: 12px;
+    margin-top: 5px;
 }

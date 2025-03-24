@@ -1,93 +1,232 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Relatório de Investidor</title>
+    <title>Gerador de Relatórios</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Gerar Relatório do Investidor</h1>
-        <div class="form-container">
-            <form id="relatorioForm">
-                <div class="form-row">
-                    <label for="leituraAnterior">Leitura Anterior:</label>
-                    <input type="date" id="leituraAnterior" name="leituraAnterior">
-                </div>
-                <div class="form-row">
-                    <label for="leituraAtual">Leitura Atual:</label>
-                    <input type="date" id="leituraAtual" name="leituraAtual">
-                </div>
-                <div class="form-row">
-                    <label for="proximaLeitura">Próxima Leitura:</label>
-                    <input type="date" id="proximaLeitura" name="proximaLeitura">
-                </div>
-                <div class="form-row">
-                    <label for="nomeInvestidor">Nome do Investidor:</label>
-                    <input type="text" id="nomeInvestidor" name="nomeInvestidor">
-                </div>
-                <div class="form-row">
-                    <label for="mesReferencia">Mês de Referência:</label>
-                    <input type="month" id="mesReferencia" name="mesReferencia">
-                </div>
-                <div class="form-row">
-                    <label for="valorLocacao">Valor da Locação:</label>
-                    <input type="number" id="valorLocacao" name="valorLocacao">
-                </div>
-                <div class="form-row">
-                    <label for="faturaCopel">Fatura Copel:</label>
-                    <input type="number" id="faturaCopel" name="faturaCopel">
-                </div>
-                <div class="form-row">
-                    <label for="valorCredito">Valor do Crédito em Conta:</label>
-                    <input type="number" id="valorCredito" name="valorCredito">
-                </div>
-                <div class="form-row">
-                    <label for="valorKwh">Valor do kWh:</label>
-                    <input type="number" id="valorKwh" name="valorKwh">
-                </div>
-                <div class="form-row">
-                    <label for="energiaGerada">Energia Gerada:</label>
-                    <input type="number" id="energiaGerada" name="energiaGerada">
-                </div>
-                <div class="form-row">
-                    <label for="energiaConsumida">Energia Consumida pelo Próprio Investidor:</label>
-                    <input type="number" id="energiaConsumida" name="energiaConsumida">
-                </div>
-                <div class="form-row">
-                    <label for="energiaCooperados">Energia Enviada para Cooperados:</label>
-                    <input type="number" id="energiaCooperados" name="energiaCooperados">
-                </div>
-                <div class="form-row">
-                    <label for="totalConsumido">Total Consumido pelos Cooperados:</label>
-                    <input type="number" id="totalConsumido" name="totalConsumido">
-                </div>
-                <div class="form-row">
-                    <label for="totalAcumulado">Total Acumulado pelos Cooperados (Todos os Períodos):</label>
-                    <input type="number" id="totalAcumulado" name="totalAcumulado">
-                </div>
-                <div id="historicoRecebimento">
-                    <h2>Histórico de Recebimento (R$)</h2>
-                    <div id="recebimentos">
-                        <div class="recebimento">
-                            <label for="mesRecebimento">Mês:</label>
-                            <input type="month" class="mesRecebimento" name="mesRecebimento[]">
-                            <label for="valorRecebido">Valor:</label>
-                            <input type="number" class="valorRecebido" name="valorRecebido[]">
-                            <button type="button" class="deletarRecebimento">Deletar</button>
-                        </div>
-                    </div>
-                    <button type="button" id="adicionarRecebimento">Adicionar Valor</button>
-                </div>
-                <button type="submit">Gerar Relatório PDF</button>
-            </form>
+    <!-- Interface de Entrada de Dados -->
+    <div id="input-form" class="form-container">
+        <h1>Gerar relatório do investidor</h1>
+
+        <!-- Seção de Leituras -->
+        <div class="section readings">
+            <div class="input-group">
+                <label>Leitura anterior:</label>
+                <input type="text" id="leitura-anterior" placeholder="mm/dd/yyyy">
+            </div>
+            <div class="input-group">
+                <label>Leitura atual:</label>
+                <input type="text" id="leitura-atual" placeholder="mm/dd/yyyy">
+            </div>
+            <div class="input-group">
+                <label>Próxima leitura:</label>
+                <input type="text" id="proxima-leitura" placeholder="mm/dd/yyyy">
+            </div>
+            <div class="input-group">
+                <label>Nome investidor:</label>
+                <input type="text" id="nome-investidor">
+            </div>
+            <div class="input-group">
+                <label>Mês de referência:</label>
+                <input type="text" id="mes-referencia">
+            </div>
         </div>
-        <div id="relatorioPreview">
-            <h2>Prévia do Relatório</h2>
-            <div id="conteudoRelatorio"></div>
+
+        <!-- Seção de Valores -->
+        <div class="section values">
+            <div class="input-group">
+                <label>Valor da locação:</label>
+                <input type="text" id="valor-locacao">
+            </div>
+            <div class="input-group">
+                <label>Fatura Copel:</label>
+                <input type="text" id="fatura-copel">
+            </div>
+            <div class="input-group">
+                <label>Valor do crédito em conta:</label>
+                <input type="text" id="valor-credito">
+            </div>
+            <div class="input-group">
+                <label>Valor do kWh:</label>
+                <input type="text" id="valor-kwh">
+            </div>
+            <div class="input-group">
+                <label>Energia gerada:</label>
+                <input type="text" id="energia-gerada">
+            </div>
+            <div class="input-group">
+                <label>Energia consumida pelo próprio investidor:</label>
+                <input type="text" id="energia-consumida">
+            </div>
+            <div class="input-group">
+                <label>Energia enviada para os cooperados:</label>
+                <input type="text" id="energia-enviada">
+            </div>
+            <div class="input-group">
+                <label>Total consumido pelos cooperados:</label>
+                <input type="text" id="total-consumido">
+            </div>
+            <div class="input-group">
+                <label>Total acumulado pelos cooperados:</label>
+                <input type="text" id="total-acumulado">
+            </div>
+        </div>
+
+        <!-- Gráficos -->
+        <div class="section charts">
+            <div class="chart-box">
+                <p>RECEBIMENTO (R$)</p>
+                <canvas id="recebimentoChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <p>HISTÓRICO DE RECEBIMENTO (R$)</p>
+                <div class="chart-controls">
+                    <div class="input-group">
+                        <label>Mês:</label>
+                        <input type="text" id="mes-historico" placeholder="MM">
+                    </div>
+                    <div class="input-group">
+                        <label>Ano:</label>
+                        <input type="text" id="ano-historico" placeholder="YYYY">
+                    </div>
+                    <div class="input-group">
+                        <label>Valor:</label>
+                        <input type="text" id="valor-historico" placeholder="R$">
+                    </div>
+                    <button class="add-value" onclick="addHistorico()">Adicionar</button>
+                    <button class="delete-value" onclick="deleteHistorico()">Delete</button>
+                </div>
+                <canvas id="historicoChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Botão Gerar PDF -->
+        <button class="generate-pdf" onclick="generatePDF()">Gerar PDF</button>
+    </div>
+
+    <!-- Template do PDF (oculto) -->
+    <div id="pdf-template" class="pdf-container" style="display: none;">
+        <div class="header">
+            <div class="logo">
+                <img src="logo.png" alt="Canal Verde Logo" style="width: 100px;">
+            </div>
+            <div class="title-contact">
+                <h1>Relatório do Investidor</h1>
+                <div class="contact">
+                    <p>+55 (44) 9 9897-7059</p>
+                    <p>gestao@canalverdeenergia.com.br</p>
+                    <p>canalverdeenergia.com.br</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section readings">
+            <div class="input-group">
+                <label>Leitura anterior:</label>
+                <span id="pdf-leitura-anterior"></span>
+            </div>
+            <div class="input-group">
+                <label>Leitura atual:</label>
+                <span id="pdf-leitura-atual"></span>
+            </div>
+            <div class="input-group">
+                <label>Próxima leitura:</label>
+                <span id="pdf-proxima-leitura"></span>
+            </div>
+            <div class="input-group">
+                <label>Nome investidor:</label>
+                <span id="pdf-nome-investidor"></span>
+            </div>
+            <div class="input-group">
+                <label>Mês de referência:</label>
+                <span id="pdf-mes-referencia"></span>
+            </div>
+        </div>
+
+        <div class="section values">
+            <div class="value-box">
+                <p>VALOR DA LOCAÇÃO</p>
+                <p id="pdf-valor-locacao"></p>
+            </div>
+            <div class="value-box">
+                <p>FATURA COPEL</p>
+                <p id="pdf-fatura-copel"></p>
+            </div>
+            <div class="value-box">
+                <p>VALOR DO CRÉDITO EM CONTA</p>
+                <p id="pdf-valor-credito" class="highlight"></p>
+            </div>
+            <div class="value-box">
+                <p>VALOR DO kWh</p>
+                <p id="pdf-valor-kwh"></p>
+            </div>
+            <div class="value-box">
+                <p>ENERGIA GERADA</p>
+                <p id="pdf-energia-gerada"></p>
+            </div>
+            <div class="value-box">
+                <p>ENERGIA CONSUMIDA PELO PRÓPRIO INVESTIDOR</p>
+                <p id="pdf-energia-consumida"></p>
+            </div>
+            <div class="value-box">
+                <p>ENERGIA ENVIADA PARA OS COOPERADOS</p>
+                <p id="pdf-energia-enviada"></p>
+            </div>
+            <div class="value-box">
+                <p>TOTAL CONSUMIDO PELOS COOPERADOS</p>
+                <p id="pdf-total-consumido"></p>
+            </div>
+            <div class="value-box">
+                <p>TOTAL ACUMULADO PELOS COOPERADOS (TODOS OS PERÍODOS)</p>
+                <p id="pdf-total-acumulado"></p>
+            </div>
+        </div>
+
+        <div class="section charts">
+            <div class="chart-box">
+                <p>RECEBIMENTO (R$)</p>
+                <canvas id="pdf-recebimentoChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <p>HISTÓRICO DE RECEBIMENTO (R$)</p>
+                <canvas id="pdf-historicoChart"></canvas>
+            </div>
+        </div>
+
+        <div class="section differentials">
+            <h2>REFERENCIAIS CANAL VERDE</h2>
+            <div class="differential-box">
+                <p><strong>Administração inteligente</strong></p>
+                <p>Realizada por uma cooperativa totalmente estruturada, regulamentada e com vivência prática.</p>
+            </div>
+            <div class="differential-box">
+                <p><strong>Burocracia zero</strong></p>
+                <p>Não demanda esforços e nem tempo do investidor e cooperado. Atuamos em todos os trâmites necessários à operação do projeto.</p>
+            </div>
+            <div class="differential-box">
+                <p><strong>Segurança técnica</strong></p>
+                <p>Nas áreas de engenharia, jurídica, tributária e comercial da usina, orquestrada por um time de profissionais técnicos especializados.</p>
+            </div>
+            <div class="differential-box">
+                <p><strong>Projeto específico</strong></p>
+                <p>E sob medida, de acordo com a necessidade de cada cliente sobre projetos de Energias Renováveis.</p>
+            </div>
+        </div>
+
+        <div class="qr-code">
+            <div id="qrcode"></div>
+            <p>Leia o QR Code e saiba mais</p>
         </div>
     </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

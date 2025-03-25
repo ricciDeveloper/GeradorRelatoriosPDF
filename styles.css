@@ -3,6 +3,7 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 20px;
+    width: 100vw;
 }
 
 /* Estilo da Interface de Entrada */
@@ -22,13 +23,13 @@ body {
 }
 
 .section {
-    margin-top: 20px;
+    margin-top: 10px; /* Reduzido para economizar espaço */
 }
 
 .readings, .values {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 8px; /* Reduzido para economizar espaço */
 }
 
 .input-group {
@@ -55,9 +56,9 @@ body {
 }
 
 .chart-box {
-    width: 48%;
+    width: 95%;
     background-color: #fff;
-    padding: 10px;
+    padding: 8px; /* Reduzido para economizar espaço */
     border-radius: 5px;
     text-align: center;
 }
@@ -65,7 +66,7 @@ body {
 .chart-box p {
     color: #333;
     font-size: 12px;
-    margin-bottom: 10px;
+    margin-bottom: 8px; /* Reduzido para economizar espaço */
 }
 
 .chart-controls {
@@ -117,15 +118,16 @@ body {
     width: 800px;
     background-color: #fff;
     color: #333;
-    padding: 20px;
+    padding: 15px; /* Reduzido para economizar espaço */
     border: 1px solid #ccc;
+    box-sizing: border-box;
 }
 
 .pdf-container .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* Reduzido para economizar espaço */
 }
 
 .pdf-container .title-contact {
@@ -133,43 +135,44 @@ body {
 }
 
 .pdf-container .title-contact h1 {
-    font-size: 24px;
+    font-size: 20px; /* Reduzido para economizar espaço */
     margin: 0;
 }
 
 .pdf-container .contact p {
     margin: 2px 0;
-    font-size: 12px;
+    font-size: 10px; /* Reduzido para economizar espaço */
 }
 
 .pdf-container .section.readings {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 8px; /* Reduzido para economizar espaço */
 }
 
 .pdf-container .section.readings .input-group span {
     background-color: #f0f0f0;
     padding: 5px;
     border-radius: 5px;
+    font-size: 12px;
 }
 
 .pdf-container .section.values {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 8px; /* Reduzido para economizar espaço */
 }
 
 .pdf-container .value-box {
     background-color: #f0f0f0;
-    padding: 10px;
+    padding: 8px; /* Reduzido para economizar espaço */
     border-radius: 5px;
     text-align: center;
 }
 
 .pdf-container .value-box p {
-    margin: 5px 0;
-    font-size: 12px;
+    margin: 3px 0; /* Reduzido para economizar espaço */
+    font-size: 10px; /* Reduzido para economizar espaço */
 }
 
 .pdf-container .value-box .highlight {
@@ -183,9 +186,9 @@ body {
 }
 
 .pdf-container .chart-box {
-    width: 48%;
+    width: 100%;
     background-color: #fff;
-    padding: 10px;
+    padding: 8px; /* Reduzido para economizar espaço */
     border: 1px solid #ccc;
     text-align: center;
 }
@@ -193,36 +196,36 @@ body {
 .pdf-container .chart-box p {
     color: #333;
     font-size: 12px;
-    margin-bottom: 10px;
+    margin-bottom: 8px; /* Reduzido para economizar espaço */
 }
 
 .pdf-container .section.differentials {
-    margin-top: 20px;
+    margin-top: 10px; /* Reduzido para economizar espaço */
 }
 
 .pdf-container .section.differentials h2 {
-    font-size: 16px;
+    font-size: 14px; /* Reduzido para economizar espaço */
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px; /* Reduzido para economizar espaço */
 }
 
 .pdf-container .section.differentials {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    gap: 8px; /* Reduzido para economizar espaço */
 }
 
 .pdf-container .differential-box {
     background-color: #f0f0f0;
-    padding: 10px;
+    padding: 8px; /* Reduzido para economizar espaço */
     border-radius: 5px;
     text-align: center;
 }
 
 .pdf-container .differential-box p {
     color: #333;
-    font-size: 12px;
-    margin: 5px 0;
+    font-size: 10px; /* Reduzido para economizar espaço */
+    margin: 3px 0; /* Reduzido para economizar espaço */
 }
 
 .pdf-container .differential-box p strong {
@@ -231,10 +234,11 @@ body {
 
 .pdf-container .qr-code {
     text-align: right;
-    margin-top: 20px;
+    margin-top: 10px; /* Reduzido para economizar espaço */
+    margin-bottom: 10px; /* Adicionado para garantir espaço no final */
 }
 
 .pdf-container .qr-code p {
-    font-size: 12px;
+    font-size: 10px; /* Reduzido para economizar espaço */
     margin-top: 5px;
 }

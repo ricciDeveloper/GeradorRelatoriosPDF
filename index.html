@@ -15,15 +15,15 @@
         <div class="section readings">
             <div class="input-group">
                 <label>Leitura anterior:</label>
-                <input type="text" id="leitura-anterior" placeholder="mm/dd/yyyy">
+                <input type="date" id="leitura-anterior">
             </div>
             <div class="input-group">
                 <label>Leitura atual:</label>
-                <input type="text" id="leitura-atual" placeholder="mm/dd/yyyy">
+                <input type="date" id="leitura-atual">
             </div>
             <div class="input-group">
                 <label>Próxima leitura:</label>
-                <input type="text" id="proxima-leitura" placeholder="mm/dd/yyyy">
+                <input type="date" id="proxima-leitura">
             </div>
             <div class="input-group">
                 <label>Nome investidor:</label>
@@ -31,7 +31,7 @@
             </div>
             <div class="input-group">
                 <label>Mês de referência:</label>
-                <input type="text" id="mes-referencia">
+                <input type="month" id="mes-referencia">
             </div>
         </div>
 
@@ -39,58 +39,50 @@
         <div class="section values">
             <div class="input-group">
                 <label>Valor da locação:</label>
-                <input type="text" id="valor-locacao">
+                <input type="text" id="valor-locacao" placeholder="R$">
             </div>
             <div class="input-group">
-                <label>Fatura Copel:</label>
-                <input type="text" id="fatura-copel">
+                <label>Fatura Concessionária:</label>
+                <input type="text" id="fatura-copel" placeholder="R$">
             </div>
             <div class="input-group">
                 <label>Valor do crédito em conta:</label>
-                <input type="text" id="valor-credito">
+                <input type="text" id="valor-credito" placeholder="R$">
             </div>
             <div class="input-group">
                 <label>Valor do kWh:</label>
-                <input type="text" id="valor-kwh">
+                <input type="text" id="valor-kwh" placeholder="R$">
             </div>
             <div class="input-group">
                 <label>Energia gerada:</label>
-                <input type="text" id="energia-gerada">
+                <input type="text" id="energia-gerada" placeholder="KWh">
             </div>
             <div class="input-group">
                 <label>Energia consumida pelo próprio investidor:</label>
-                <input type="text" id="energia-consumida">
+                <input type="text" id="energia-consumida" placeholder="KWh">
             </div>
             <div class="input-group">
                 <label>Energia enviada para os cooperados:</label>
-                <input type="text" id="energia-enviada">
+                <input type="text" id="energia-enviada" placeholder="KWh">
             </div>
             <div class="input-group">
                 <label>Total consumido pelos cooperados:</label>
-                <input type="text" id="total-consumido">
+                <input type="text" id="total-consumido" placeholder="KWh">
             </div>
             <div class="input-group">
                 <label>Total acumulado pelos cooperados:</label>
-                <input type="text" id="total-acumulado">
+                <input type="text" id="total-acumulado" placeholder="Saldo KWh">
             </div>
         </div>
 
         <!-- Gráficos -->
         <div class="section charts">
             <div class="chart-box">
-                <p>RECEBIMENTO (R$)</p>
-                <canvas id="recebimentoChart"></canvas>
-            </div>
-            <div class="chart-box">
                 <p>HISTÓRICO DE RECEBIMENTO (R$)</p>
                 <div class="chart-controls">
                     <div class="input-group">
                         <label>Mês:</label>
-                        <input type="text" id="mes-historico" placeholder="MM">
-                    </div>
-                    <div class="input-group">
-                        <label>Ano:</label>
-                        <input type="text" id="ano-historico" placeholder="YYYY">
+                        <input type="text" id="mes-historico" placeholder="Mês">
                     </div>
                     <div class="input-group">
                         <label>Valor:</label>
@@ -187,10 +179,6 @@
 
         <div class="section charts">
             <div class="chart-box">
-                <p>RECEBIMENTO (R$)</p>
-                <canvas id="pdf-recebimentoChart"></canvas>
-            </div>
-            <div class="chart-box">
                 <p>HISTÓRICO DE RECEBIMENTO (R$)</p>
                 <canvas id="pdf-historicoChart"></canvas>
             </div>
@@ -223,10 +211,10 @@
     </div>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

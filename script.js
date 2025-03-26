@@ -4,11 +4,30 @@ let historicoData = {
     valores: []
 };
 
+// Função para abreviar os meses (ex.: "Janeiro" -> "JAN")
+function abreviarMes(mes) {
+    const mesesAbreviados = {
+        'Janeiro': 'JAN',
+        'Fevereiro': 'FEV',
+        'Março': 'MAR',
+        'Abril': 'ABR',
+        'Maio': 'MAI',
+        'Junho': 'JUN',
+        'Julho': 'JUL',
+        'Agosto': 'AGO',
+        'Setembro': 'SET',
+        'Outubro': 'OUT',
+        'Novembro': 'NOV',
+        'Dezembro': 'DEZ'
+    };
+    return mesesAbreviados[mes] || mes.toUpperCase().slice(0, 3);
+}
+
 // Inicializar gráfico na interface de entrada (apenas historicoChart)
 const historicoChart = new Chart(document.getElementById('historicoChart'), {
     type: 'bar',
     data: {
-        labels: historicoData.labels,
+        labels: historicoData.labels.map(abreviarMes),
         datasets: [{
             label: 'Histórico (R$)',
             data: historicoData.valores,
@@ -40,6 +59,8 @@ function addHistorico() {
             historicoData.valores.push(valor);
 
             // Atualizar o gráfico
+            historicoChart.data.labels = historicoData.labels.map(abreviarMes);
+            historicoChart.data.datasets[0].data = historicoData.valores;
             historicoChart.update();
 
             // Limpar os campos
@@ -60,6 +81,8 @@ function deleteHistorico() {
         historicoData.valores.pop();
 
         // Atualizar o gráfico
+        historicoChart.data.labels = historicoData.labels.map(abreviarMes);
+        historicoChart.data.datasets[0].data = historicoData.valores;
         historicoChart.update();
     }
 }
@@ -72,7 +95,7 @@ function formatarMesReferencia(valor) {
     ];
     if (valor) {
         const [ano, mes] = valor.split('-');
-        return `${meses[parseInt(mes) - 1]} ${ano}`;
+        return `${meses[parseInt(mes) - 1]}/${ano}`;
     }
     return '';
 }
@@ -86,39 +109,56 @@ function formatarData(valor) {
     return '';
 }
 
+// Função para formatar valores monetários (ex.: 123.00 -> "123,00")
+function formatarValorMonetario(valor) {
+    if (!valor) return '';
+    return parseFloat(valor).toFixed(2).replace('.', ',');
+}
+
 // Função para gerar o PDF
 function generatePDF() {
     // Capturar os valores dos campos de entrada
     const leituraAnterior = document.getElementById('leitura-anterior').value;
     const leituraAtual = document.getElementById('leitura-atual').value;
     const proximaLeitura = document.getElementById('proxima-leitura').value;
-    const nomeInvestidor = document.getElementById('nome-investidor').value || 'Investidor'; // Valor padrão se vazio
+    const nomeUsina = document.getElementById('nome-usina').value || 'Usina do Juvito'; // Valor padrão se vazio
     const mesReferencia = formatarMesReferencia(document.getElementById('mes-referencia').value);
+    const valorCredito = document.getElementById('valor-credito').value || '';
     const valorLocacao = document.getElementById('valor-locacao').value || '';
     const faturaCopel = document.getElementById('fatura-copel').value || '';
-    const valorCredito = document.getElementById('valor-credito').value || '';
     const valorKwh = document.getElementById('valor-kwh').value || '';
     const energiaGerada = document.getElementById('energia-gerada').value || '';
     const energiaConsumida = document.getElementById('energia-consumida').value || '';
     const energiaEnviada = document.getElementById('energia-enviada').value || '';
     const totalConsumido = document.getElementById('total-consumido').value || '';
     const totalAcumulado = document.getElementById('total-acumulado').value || '';
+    const retornoAcumulado = document.getElementById('retorno-acumulado').value || '';
 
     // Preencher o template do PDF com os valores, formatando as datas
     document.getElementById('pdf-leitura-anterior').textContent = formatarData(leituraAnterior);
     document.getElementById('pdf-leitura-atual').textContent = formatarData(leituraAtual);
     document.getElementById('pdf-proxima-leitura').textContent = formatarData(proximaLeitura);
-    document.getElementById('pdf-nome-investidor').textContent = nomeInvestidor;
+    document.getElementById('pdf-nome-usina').textContent = nomeUsina;
     document.getElementById('pdf-mes-referencia').textContent = mesReferencia;
-    document.getElementById('pdf-valor-locacao').textContent = valorLocacao;
-    document.getElementById('pdf-fatura-copel').textContent = faturaCopel;
-    document.getElementById('pdf-valor-credito').textContent = valorCredito;
-    document.getElementById('pdf-valor-kwh').textContent = valorKwh;
-    document.getElementById('pdf-energia-gerada').textContent = energiaGerada;
-    document.getElementById('pdf-energia-consumida').textContent = energiaConsumida;
-    document.getElementById('pdf-energia-enviada').textContent = energiaEnviada;
-    document.getElementById('pdf-total-consumido').textContent = totalConsumido;
-    document.getElementById('pdf-total-acumulado').textContent = totalAcumulado;
+    document.getElementById('pdf-valor-credito').textContent = `R$ ${formatarValorMonetario(valorCredito)}`;
+    document.getElementById('pdf-valor-locacao').textContent = `R$ ${formatarValorMonetario(valorLocacao)}`;
+    document.getElementById('pdf-fatura-copel').textContent = `R$ ${formatarValorMonetario(faturaCopel)}`;
+    document.getElementById('pdf-valor-kwh').textContent = `R$ ${formatarValorMonetario(valorKwh)}`;
+    document.getElementById('pdf-energia-gerada').textContent = `${energiaGerada} kWh`;
+    document.getElementById('pdf-energia-consumida').textContent = `${energiaConsumida} kWh`;
+    document.getElementById('pdf-energia-enviada').textContent = `${energiaEnviada} kWh`;
+    document.getElementById('pdf-total-consumido').textContent = `${totalConsumido} kWh`;
+    document.getElementById('pdf-total-acumulado').textContent = `${totalAcumulado} kWh`;
+    document.getElementById('pdf-retorno-acumulado').textContent = `R$ ${formatarValorMonetario(retornoAcumulado)}`;
+
+    // Preencher a tabela "Recebimento (R$)"
+    const recebimentoTableBody = document.getElementById('pdf-recebimentoTableBody');
+    recebimentoTableBody.innerHTML = ''; // Limpar a tabela
+    for (let i = 0; i < historicoData.labels.length; i++) {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${historicoData.labels[i]}</td><td>R$ ${formatarValorMonetario(historicoData.valores[i])}</td>`;
+        recebimentoTableBody.appendChild(row);
+    }
 
     // Tornar o template visível temporariamente
     const element = document.getElementById('pdf-template');
@@ -126,7 +166,7 @@ function generatePDF() {
 
     // Garantir que a logo seja carregada
     const logoImg = document.querySelector('#pdf-template .logo img');
-    logoImg.src = './Assets/logo.jpeg'; // Certifique-se de que o caminho está correto
+    logoImg.src = './Assets/logoG.jpeg'; // Certifique-se de que o caminho está correto
 
     // Inicializar gráfico no template do PDF (apenas o histórico)
     let pdfHistoricoChart;
@@ -134,7 +174,7 @@ function generatePDF() {
         pdfHistoricoChart = new Chart(document.getElementById('pdf-historicoChart'), {
             type: 'bar',
             data: {
-                labels: historicoData.labels,
+                labels: historicoData.labels.map(abreviarMes),
                 datasets: [{
                     label: 'Histórico (R$)',
                     data: historicoData.valores,
@@ -142,9 +182,22 @@ function generatePDF() {
                 }]
             },
             options: {
+                maintainAspectRatio: false,
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        ticks: {
+                            font: {
+                                size: 8
+                            }
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            font: {
+                                size: 8
+                            }
+                        }
                     }
                 },
                 plugins: {
@@ -163,8 +216,6 @@ function generatePDF() {
     qrCodeContainer.innerHTML = ''; // Limpar qualquer conteúdo anterior
     const qrCodeImg = document.createElement('img');
     qrCodeImg.src = './Assets/1.png'; // Substitua pelo caminho correto da sua imagem de QR Code
-    qrCodeImg.style.width = '100px';
-    qrCodeImg.style.height = '100px';
     qrCodeContainer.appendChild(qrCodeImg);
 
     // Aguardar renderização antes de gerar o PDF
@@ -183,9 +234,8 @@ function generatePDF() {
                 const pdfWidth = pdf.internal.pageSize.getWidth();
                 const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-                // Ajustar para caber em uma página ou dividir em várias
+                // Ajustar para caber em uma página
                 if (pdfHeight > pdf.internal.pageSize.getHeight()) {
-                    // Se o conteúdo for muito longo, ajustamos a escala para caber na página
                     const scaleFactor = pdf.internal.pageSize.getHeight() / pdfHeight;
                     const scaledWidth = pdfWidth * scaleFactor;
                     const scaledHeight = pdfHeight * scaleFactor;
@@ -194,8 +244,8 @@ function generatePDF() {
                     pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
                 }
 
-                // Usar o nome do investidor como nome do arquivo
-                const nomeArquivo = `${nomeInvestidor.replace(/\s+/g, '_')}_relatorio.pdf`;
+                // Usar o nome da usina como nome do arquivo
+                const nomeArquivo = `${nomeUsina.replace(/\s+/g, '_')}_relatorio.pdf`;
                 pdf.save(nomeArquivo);
 
                 // Ocultar o template e limpar o gráfico

@@ -3,7 +3,6 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 20px;
-    width: 100vw;
 }
 
 /* Estilo da Interface de Entrada */
@@ -23,13 +22,13 @@ body {
 }
 
 .section {
-    margin-top: 10px; /* Reduzido para economizar espaço */
+    margin-top: 20px;
 }
 
 .readings, .values {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 8px; /* Reduzido para economizar espaço */
+    gap: 10px;
 }
 
 .input-group {
@@ -56,9 +55,9 @@ body {
 }
 
 .chart-box {
-    width: 95%;
+    width: 100%;
     background-color: #fff;
-    padding: 8px; /* Reduzido para economizar espaço */
+    padding: 10px;
     border-radius: 5px;
     text-align: center;
 }
@@ -66,7 +65,7 @@ body {
 .chart-box p {
     color: #333;
     font-size: 12px;
-    margin-bottom: 8px; /* Reduzido para economizar espaço */
+    margin-bottom: 10px;
 }
 
 .chart-controls {
@@ -115,19 +114,40 @@ body {
 
 /* Estilo do PDF */
 .pdf-container {
-    width: 800px;
-    background-color: #fff;
+    width: 210mm; /* A4 width */
+    height: 297mm; /* A4 height */
+    background-color: #E6E6E6;
     color: #333;
-    padding: 15px; /* Reduzido para economizar espaço */
-    border: 1px solid #ccc;
+    padding: 15mm;
     box-sizing: border-box;
+    position: relative;
+    font-family: Arial, sans-serif;
 }
 
 .pdf-container .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px; /* Reduzido para economizar espaço */
+    margin-bottom: 10mm;
+}
+
+.pdf-container .logo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.pdf-container .logo img {
+    width: 30mm;
+    margin-bottom: 1mm;
+}
+
+.pdf-container .logo .logo-subtitle {
+    font-size: 8pt;
+    color: #333;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 0;
 }
 
 .pdf-container .title-contact {
@@ -135,110 +155,265 @@ body {
 }
 
 .pdf-container .title-contact h1 {
-    font-size: 20px; /* Reduzido para economizar espaço */
-    margin: 0;
+    font-size: 18pt;
+    font-weight: bold;
+    margin-bottom: 2mm;
+    color: #333;
 }
 
 .pdf-container .contact p {
-    margin: 2px 0;
-    font-size: 10px; /* Reduzido para economizar espaço */
+    margin: 1mm 0;
+    font-size: 10pt;
+    color: #333;
 }
 
 .pdf-container .section.readings {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px; /* Reduzido para economizar espaço */
+    margin-bottom: 5mm;
+}
+
+.pdf-container .readings-top {
+    margin-bottom: 3mm;
+}
+
+.pdf-container .readings-top .input-group {
+    background-color: #fff;
+    padding: 2mm 3mm;
+    border-radius: 2mm;
+    border: 1px solid #000;
+    text-align: center;
+}
+
+.pdf-container .readings-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 3mm;
+}
+
+.pdf-container .section.readings .input-group {
+    background-color: #fff;
+    padding: 2mm 3mm;
+    border-radius: 2mm;
+    border: 1px solid #000;
+    text-align: center;
+    flex: 1;
+}
+
+.pdf-container .section.readings .input-group.credit-highlight {
+    background-color: #28A745;
+}
+
+.pdf-container .section.readings .input-group.credit-highlight label,
+.pdf-container .section.readings .input-group.credit-highlight span {
+    color: #fff;
+}
+
+.pdf-container .section.readings .input-group label {
+    font-size: 10pt;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
 }
 
 .pdf-container .section.readings .input-group span {
-    background-color: #f0f0f0;
-    padding: 5px;
-    border-radius: 5px;
-    font-size: 12px;
+    font-size: 12pt;
+    color: #333;
 }
 
 .pdf-container .section.values {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px; /* Reduzido para economizar espaço */
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3mm;
+    margin-bottom: 5mm;
 }
 
 .pdf-container .value-box {
-    background-color: #f0f0f0;
-    padding: 8px; /* Reduzido para economizar espaço */
-    border-radius: 5px;
+    background-color: #fff;
+    padding: 3mm;
+    border-radius: 2mm;
+    border: 1px solid #000;
     text-align: center;
 }
 
 .pdf-container .value-box p {
-    margin: 3px 0; /* Reduzido para economizar espaço */
-    font-size: 10px; /* Reduzido para economizar espaço */
+    margin: 1mm 0;
+    font-size: 10pt;
+    color: #333;
+    text-transform: uppercase;
 }
 
-.pdf-container .value-box .highlight {
-    color: #28A745;
+.pdf-container .value-box p:last-child {
+    font-size: 12pt;
     font-weight: bold;
 }
 
 .pdf-container .section.charts {
+    margin-bottom: 5mm;
+    height: 50mm; /* Altura fixa para evitar expansão */
+}
+
+.pdf-container .chart-container {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
+    gap: 3mm;
+    height: 100%;
+}
+
+.pdf-container .recebimento-table {
+    width: 35%;
+    background-color: #fff;
+    padding: 3mm;
+    border: 1px solid #000;
+    text-align: center;
+    box-sizing: border-box;
+    height: 100%;
+    overflow: hidden;
+}
+
+.pdf-container .recebimento-table p {
+    color: #333;
+    font-size: 10pt;
+    font-weight: bold;
+    margin-bottom: 2mm;
+    text-transform: uppercase;
+}
+
+.pdf-container .recebimento-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9pt;
+}
+
+.pdf-container .recebimento-table th, .pdf-container .recebimento-table td {
+    border: 1px solid #000;
+    padding: 1mm;
+    text-align: center;
+    color: #333;
+}
+
+.pdf-container .recebimento-table th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.pdf-container .recebimento-table tbody {
+    display: block;
+    max-height: 30mm;
+    overflow-y: auto;
+}
+
+.pdf-container .recebimento-table tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.pdf-container .retorno-acumulado {
+    margin-top: 2mm;
+    font-size: 10pt;
+    color: #333;
+    text-align: left;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.pdf-container .retorno-acumulado span {
+    font-weight: bold;
+    color: #28A745;
 }
 
 .pdf-container .chart-box {
-    width: 100%;
+    width: 65%;
     background-color: #fff;
-    padding: 8px; /* Reduzido para economizar espaço */
-    border: 1px solid #ccc;
+    padding: 3mm;
+    border: 1px solid #000;
     text-align: center;
+    box-sizing: border-box;
+    height: 100%;
 }
 
 .pdf-container .chart-box p {
     color: #333;
-    font-size: 12px;
-    margin-bottom: 8px; /* Reduzido para economizar espaço */
+    font-size: 10pt;
+    font-weight: bold;
+    margin-bottom: 2mm;
+    text-transform: uppercase;
+}
+
+.pdf-container .chart-box canvas {
+    max-height: 40mm !important;
+    width: 100% !important;
 }
 
 .pdf-container .section.differentials {
-    margin-top: 10px; /* Reduzido para economizar espaço */
+    margin-top: 5mm;
 }
 
 .pdf-container .section.differentials h2 {
-    font-size: 14px; /* Reduzido para economizar espaço */
+    font-size: 12pt;
     text-align: center;
-    margin-bottom: 10px; /* Reduzido para economizar espaço */
+    margin-bottom: 3mm;
+    color: #333;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
-.pdf-container .section.differentials {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px; /* Reduzido para economizar espaço */
+.pdf-container .differentials-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 3mm;
+    margin-bottom: 3mm;
+}
+
+.pdf-container .differentials-row:first-child .differential-box {
+    flex: 1;
+}
+
+.pdf-container .differentials-row:last-child {
+    justify-content: flex-start;
+}
+
+.pdf-container .differentials-row:last-child .differential-box {
+    flex: 1;
+    max-width: calc(33.33% - 3mm);
 }
 
 .pdf-container .differential-box {
-    background-color: #f0f0f0;
-    padding: 8px; /* Reduzido para economizar espaço */
-    border-radius: 5px;
+    background-color: #fff;
+    padding: 3mm;
+    border-radius: 2mm;
+    border: 1px solid #000;
     text-align: center;
 }
 
 .pdf-container .differential-box p {
     color: #333;
-    font-size: 10px; /* Reduzido para economizar espaço */
-    margin: 3px 0; /* Reduzido para economizar espaço */
+    font-size: 9pt;
+    margin: 1mm 0;
 }
 
 .pdf-container .differential-box p strong {
     font-weight: bold;
+    font-size: 10pt;
+    text-transform: uppercase;
 }
 
 .pdf-container .qr-code {
-    text-align: right;
-    margin-top: 10px; /* Reduzido para economizar espaço */
-    margin-bottom: 10px; /* Adicionado para garantir espaço no final */
+    position: absolute;
+    bottom: 15mm;
+    right: 15mm;
+    text-align: center;
+}
+
+.pdf-container .qr-code img {
+    width: 25mm;
+    height: 25mm;
 }
 
 .pdf-container .qr-code p {
-    font-size: 10px; /* Reduzido para economizar espaço */
-    margin-top: 5px;
+    font-size: 10pt;
+    margin-top: 1mm;
+    color: #333;
+    font-weight: bold;
+    text-transform: uppercase;
 }

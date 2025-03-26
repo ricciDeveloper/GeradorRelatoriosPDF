@@ -26,12 +26,16 @@
                 <input type="date" id="proxima-leitura">
             </div>
             <div class="input-group">
-                <label>Nome investidor:</label>
-                <input type="text" id="nome-investidor">
+                <label>Nome da usina:</label>
+                <input type="text" id="nome-usina">
             </div>
             <div class="input-group">
                 <label>Mês de referência:</label>
                 <input type="month" id="mes-referencia">
+            </div>
+            <div class="input-group">
+                <label>Valor do crédito em conta:</label>
+                <input type="text" id="valor-credito" placeholder="R$">
             </div>
         </div>
 
@@ -44,10 +48,6 @@
             <div class="input-group">
                 <label>Fatura Concessionária:</label>
                 <input type="text" id="fatura-copel" placeholder="R$">
-            </div>
-            <div class="input-group">
-                <label>Valor do crédito em conta:</label>
-                <input type="text" id="valor-credito" placeholder="R$">
             </div>
             <div class="input-group">
                 <label>Valor do kWh:</label>
@@ -72,6 +72,10 @@
             <div class="input-group">
                 <label>Total acumulado pelos cooperados:</label>
                 <input type="text" id="total-acumulado" placeholder="Saldo KWh">
+            </div>
+            <div class="input-group">
+                <label>Retorno acumulado (R$):</label>
+                <input type="text" id="retorno-acumulado" placeholder="R$">
             </div>
         </div>
 
@@ -103,7 +107,8 @@
     <div id="pdf-template" class="pdf-container" style="display: none;">
         <div class="header">
             <div class="logo">
-                <img src="logo.png" alt="Canal Verde Logo" style="width: 100px;">
+                <img src="./Assets/logoG.jpeg" alt="Canal Verde Logo">
+                <p class="logo-subtitle">COOPERATIVA DE ENERGIAS RENOVÁVEIS</p>
             </div>
             <div class="title-contact">
                 <h1>Relatório do Investidor</h1>
@@ -116,25 +121,33 @@
         </div>
 
         <div class="section readings">
-            <div class="input-group">
-                <label>Leitura anterior:</label>
-                <span id="pdf-leitura-anterior"></span>
+            <div class="readings-top">
+                <div class="input-group">
+                    <label>Usina:</label>
+                    <span id="pdf-nome-usina"></span>
+                </div>
             </div>
-            <div class="input-group">
-                <label>Leitura atual:</label>
-                <span id="pdf-leitura-atual"></span>
-            </div>
-            <div class="input-group">
-                <label>Próxima leitura:</label>
-                <span id="pdf-proxima-leitura"></span>
-            </div>
-            <div class="input-group">
-                <label>Nome investidor:</label>
-                <span id="pdf-nome-investidor"></span>
-            </div>
-            <div class="input-group">
-                <label>Mês de referência:</label>
-                <span id="pdf-mes-referencia"></span>
+            <div class="readings-bottom">
+                <div class="input-group">
+                    <label>Leitura anterior:</label>
+                    <span id="pdf-leitura-anterior"></span>
+                </div>
+                <div class="input-group">
+                    <label>Leitura atual:</label>
+                    <span id="pdf-leitura-atual"></span>
+                </div>
+                <div class="input-group">
+                    <label>Próxima leitura:</label>
+                    <span id="pdf-proxima-leitura"></span>
+                </div>
+                <div class="input-group">
+                    <label>Mês de referência:</label>
+                    <span id="pdf-mes-referencia"></span>
+                </div>
+                <div class="input-group credit-highlight">
+                    <label>Valor do crédito em conta:</label>
+                    <span id="pdf-valor-credito"></span>
+                </div>
             </div>
         </div>
 
@@ -146,10 +159,6 @@
             <div class="value-box">
                 <p>FATURA COPEL</p>
                 <p id="pdf-fatura-copel"></p>
-            </div>
-            <div class="value-box">
-                <p>VALOR DO CRÉDITO EM CONTA</p>
-                <p id="pdf-valor-credito" class="highlight"></p>
             </div>
             <div class="value-box">
                 <p>VALOR DO kWh</p>
@@ -178,29 +187,52 @@
         </div>
 
         <div class="section charts">
-            <div class="chart-box">
-                <p>HISTÓRICO DE RECEBIMENTO (R$)</p>
-                <canvas id="pdf-historicoChart"></canvas>
+            <div class="chart-container">
+                <div class="recebimento-table">
+                    <p>RECEBIMENTO (R$)</p>
+                    <table id="pdf-recebimentoTable">
+                        <thead>
+                            <tr>
+                                <th>Mês</th>
+                                <th>Valor (R$)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pdf-recebimentoTableBody"></tbody>
+                    </table>
+                    <p class="retorno-acumulado">💰 RETORNO ACUMULADO <span id="pdf-retorno-acumulado"></span></p>
+                </div>
+                <div class="chart-box">
+                    <p>HISTÓRICO DE RECEBIMENTO (R$)</p>
+                    <canvas id="pdf-historicoChart"></canvas>
+                </div>
             </div>
         </div>
 
         <div class="section differentials">
-            <h2>REFERENCIAIS CANAL VERDE</h2>
-            <div class="differential-box">
-                <p><strong>Administração inteligente</strong></p>
-                <p>Realizada por uma cooperativa totalmente estruturada, regulamentada e com vivência prática.</p>
+            <h2>DIFERENCIAIS CANAL VERDE</h2>
+            <div class="differentials-row">
+                <div class="differential-box">
+                    <p><strong>Administração inteligente</strong></p>
+                    <p>Realizada por uma cooperativa totalmente estruturada, regulamentada e com vivência prática.</p>
+                </div>
+                <div class="differential-box">
+                    <p><strong>Segurança técnica</strong></p>
+                    <p>Nas áreas de engenharia, jurídica, tributária e comercial da usina, orquestrada por um time de profissionais técnicos especializados.</p>
+                </div>
+                <div class="differential-box">
+                    <p><strong>Gestão à vista</strong></p>
+                    <p>Você economiza logo no primeiro mês após a formalização e se livra de qualquer inflação energética.</p>
+                </div>
             </div>
-            <div class="differential-box">
-                <p><strong>Burocracia zero</strong></p>
-                <p>Não demanda esforços e nem tempo do investidor e cooperado. Atuamos em todos os trâmites necessários à operação do projeto.</p>
-            </div>
-            <div class="differential-box">
-                <p><strong>Segurança técnica</strong></p>
-                <p>Nas áreas de engenharia, jurídica, tributária e comercial da usina, orquestrada por um time de profissionais técnicos especializados.</p>
-            </div>
-            <div class="differential-box">
-                <p><strong>Projeto específico</strong></p>
-                <p>E sob medida, de acordo com a necessidade de cada cliente sobre projetos de Energias Renováveis.</p>
+            <div class="differentials-row">
+                <div class="differential-box">
+                    <p><strong>Burocracia zero</strong></p>
+                    <p>Não demanda esforços e nem tempo do investidor e cooperado. Atuamos em todos os trâmites necessários à operação do projeto.</p>
+                </div>
+                <div class="differential-box">
+                    <p><strong>Projeto específico</strong></p>
+                    <p>E sob medida, de acordo com a necessidade de cada cliente sobre projetos de Energias Renováveis.</p>
+                </div>
             </div>
         </div>
 

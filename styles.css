@@ -2,17 +2,44 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Contêiner Principal com Duas Metades */
+.main-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Metade Esquerda: Formulário */
+.left-panel {
+    flex: 1;
     padding: 20px;
+    overflow-y: auto;
+    background-color: #f4f4f4;
+}
+
+/* Metade Direita: Prévia do PDF */
+.right-panel {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #e6e6e6;
+    display: flex;
+    justify-content: center; /* Centraliza a prévia horizontalmente */
+    align-items: flex-start; /* Alinha a prévia no topo */
 }
 
 /* Estilo da Interface de Entrada */
 .form-container {
-    width: 800px;
-    margin: 0 auto;
+    width: 100%;
     background-color: #1C2526;
     color: white;
     padding: 20px;
     border-radius: 10px;
+    box-sizing: border-box;
 }
 
 .form-container h1 {
@@ -34,6 +61,7 @@ body {
 .input-group {
     display: flex;
     flex-direction: column;
+    height: 50px;
 }
 
 .input-group label {
@@ -112,7 +140,7 @@ body {
     background-color: #e69520;
 }
 
-/* Estilo do PDF */
+/* Estilo do PDF (Prévia) */
 .pdf-container {
     width: 210mm; /* A4 width */
     height: 297mm; /* A4 height */
@@ -122,6 +150,14 @@ body {
     box-sizing: border-box;
     position: relative;
     font-family: Arial, sans-serif;
+    border: 3px solid red; /* Mantido conforme seu código */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra para destacar a prévia */
+}
+
+/* Ajuste dinâmico da escala para caber na tela */
+.right-panel .pdf-container {
+    transform-origin: top left;
+    transform: scale(0.45); /* Ajustado para caber na tela */
 }
 
 .pdf-container .header {
@@ -142,10 +178,9 @@ body {
     margin-bottom: 1mm;
 }
 
-.pdf-container .logo .logo-subtitle {
-    font-size: 8pt;
+.pdf-container .logo .investor-name {
+    font-size: 10pt;
     color: #333;
-    text-transform: uppercase;
     font-weight: bold;
     margin: 0;
 }
@@ -196,6 +231,7 @@ body {
     border: 1px solid #000;
     text-align: center;
     flex: 1;
+    height:20mm ;
 }
 
 .pdf-container .section.readings .input-group.credit-highlight {
@@ -208,10 +244,11 @@ body {
 }
 
 .pdf-container .section.readings .input-group label {
-    font-size: 10pt;
+    font-size: 8pt;
     font-weight: bold;
     color: #333;
     text-transform: uppercase;
+    text-wrap: nowrap;
 }
 
 .pdf-container .section.readings .input-group span {
@@ -221,29 +258,38 @@ body {
 
 .pdf-container .section.values {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 3mm;
+    grid-template-columns: repeat(2, 1fr); /* 4 colunas de largura igual */
+    gap: 3mm; /* Espaço entre as caixas */
     margin-bottom: 5mm;
+    width: 180mm; /* Espaço interno útil (210mm - 15mm de padding de cada lado) */
 }
 
 .pdf-container .value-box {
     background-color: #fff;
-    padding: 3mm;
+    padding: 2mm; /* Padding interno */
     border-radius: 2mm;
     border: 1px solid #000;
     text-align: center;
+    min-height: 10mm; /* Altura mínima ajustada */
+    width: 100%; /* Ocupa 100% da largura da célula da grade (25% do total) */
+    box-sizing: border-box; /* Garante que o padding não aumente a largura */
 }
 
 .pdf-container .value-box p {
-    margin: 1mm 0;
-    font-size: 10pt;
+    margin: 0;
+    font-size: 8pt; /* Tamanho da fonte ajustado */
     color: #333;
     text-transform: uppercase;
+    line-height: 1.2; /* Ajuste para evitar quebras */
+    white-space: nowrap; /* Evita quebras de linha */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adiciona reticências se o texto for muito longo */
 }
 
 .pdf-container .value-box p:last-child {
-    font-size: 12pt;
+    font-size: 10pt; /* Tamanho da fonte para o valor */
     font-weight: bold;
+    margin-top: 1mm;
 }
 
 .pdf-container .section.charts {
@@ -256,25 +302,26 @@ body {
     justify-content: space-between;
     align-items: flex-start;
     gap: 3mm;
-    height: 100%;
+    height: 80mm;
 }
 
 .pdf-container .recebimento-table {
-    width: 35%;
+    width: 50%;
     background-color: #fff;
     padding: 3mm;
     border: 1px solid #000;
     text-align: center;
     box-sizing: border-box;
-    height: 100%;
+    height: 70mm;
     overflow: hidden;
+
 }
 
 .pdf-container .recebimento-table p {
     color: #333;
-    font-size: 10pt;
+    font-size: 8pt;
     font-weight: bold;
-    margin-bottom: 2mm;
+    margin-bottom: 1mm;
     text-transform: uppercase;
 }
 
@@ -346,7 +393,9 @@ body {
 }
 
 .pdf-container .section.differentials {
-    margin-top: 5mm;
+    margin-top: 25mm; /* Aumentado para posicionar a seção mais abaixo */
+    margin-bottom: 5mm;
+    width: 180mm; /* Espaço interno útil (210mm - 15mm de padding de cada lado) */
 }
 
 .pdf-container .section.differentials h2 {
@@ -399,8 +448,8 @@ body {
 }
 
 .pdf-container .qr-code {
-    position: absolute;
-    bottom: 15mm;
+    /* position: absolute;
+    bottom: 15mm; */
     right: 15mm;
     text-align: center;
 }

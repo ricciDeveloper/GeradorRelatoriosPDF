@@ -48,6 +48,44 @@ const historicoChart = new Chart(document.getElementById('historicoChart'), {
     }
 });
 
+// Inicializar gráfico na prévia do PDF (pdf-historicoChart)
+let pdfHistoricoChart = new Chart(document.getElementById('pdf-historicoChart'), {
+    type: 'bar',
+    data: {
+        labels: historicoData.labels.map(abreviarMes),
+        datasets: [{
+            label: 'Histórico (R$)',
+            data: historicoData.valores,
+            backgroundColor: '#28A745',
+        }]
+    },
+    options: {
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    font: {
+                        size: 8
+                    }
+                }
+            },
+            x: {
+                ticks: {
+                    font: {
+                        size: 8
+                    }
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                display: false
+            }
+        }
+    }
+});
+
 // Função para adicionar entrada ao histórico
 function addHistorico() {
     const mes = document.getElementById('mes-historico').value;
@@ -58,10 +96,18 @@ function addHistorico() {
             historicoData.labels.push(mes);
             historicoData.valores.push(valor);
 
-            // Atualizar o gráfico
+            // Atualizar o gráfico da interface
             historicoChart.data.labels = historicoData.labels.map(abreviarMes);
             historicoChart.data.datasets[0].data = historicoData.valores;
             historicoChart.update();
+
+            // Atualizar o gráfico da prévia
+            pdfHistoricoChart.data.labels = historicoData.labels.map(abreviarMes);
+            pdfHistoricoChart.data.datasets[0].data = historicoData.valores;
+            pdfHistoricoChart.update();
+
+            // Atualizar a tabela na prévia
+            updatePreview();
 
             // Limpar os campos
             document.getElementById('mes-historico').value = '';
@@ -80,10 +126,18 @@ function deleteHistorico() {
         historicoData.labels.pop();
         historicoData.valores.pop();
 
-        // Atualizar o gráfico
+        // Atualizar o gráfico da interface
         historicoChart.data.labels = historicoData.labels.map(abreviarMes);
         historicoChart.data.datasets[0].data = historicoData.valores;
         historicoChart.update();
+
+        // Atualizar o gráfico da prévia
+        pdfHistoricoChart.data.labels = historicoData.labels.map(abreviarMes);
+        pdfHistoricoChart.data.datasets[0].data = historicoData.valores;
+        pdfHistoricoChart.update();
+
+        // Atualizar a tabela na prévia
+        updatePreview();
     }
 }
 
@@ -115,13 +169,13 @@ function formatarValorMonetario(valor) {
     return parseFloat(valor).toFixed(2).replace('.', ',');
 }
 
-// Função para gerar o PDF
-function generatePDF() {
+// Função para atualizar a prévia em tempo real
+function updatePreview() {
     // Capturar os valores dos campos de entrada
+    const nomeInvestidor = document.getElementById('nome-investidor').value || 'Investidor Não Informado';
     const leituraAnterior = document.getElementById('leitura-anterior').value;
     const leituraAtual = document.getElementById('leitura-atual').value;
     const proximaLeitura = document.getElementById('proxima-leitura').value;
-    const nomeUsina = document.getElementById('nome-usina').value || 'Usina do Juvito'; // Valor padrão se vazio
     const mesReferencia = formatarMesReferencia(document.getElementById('mes-referencia').value);
     const valorCredito = document.getElementById('valor-credito').value || '';
     const valorLocacao = document.getElementById('valor-locacao').value || '';
@@ -135,10 +189,56 @@ function generatePDF() {
     const retornoAcumulado = document.getElementById('retorno-acumulado').value || '';
 
     // Preencher o template do PDF com os valores, formatando as datas
+    document.getElementById('pdf-nome-investidor').textContent = nomeInvestidor;
     document.getElementById('pdf-leitura-anterior').textContent = formatarData(leituraAnterior);
     document.getElementById('pdf-leitura-atual').textContent = formatarData(leituraAtual);
     document.getElementById('pdf-proxima-leitura').textContent = formatarData(proximaLeitura);
-    document.getElementById('pdf-nome-usina').textContent = nomeUsina;
+    document.getElementById('pdf-mes-referencia').textContent = mesReferencia;
+    document.getElementById('pdf-valor-credito').textContent = `R$ ${formatarValorMonetario(valorCredito)}`;
+    document.getElementById('pdf-valor-locacao').textContent = `R$ ${formatarValorMonetario(valorLocacao)}`;
+    document.getElementById('pdf-fatura-copel').textContent = `R$ ${formatarValorMonetario(faturaCopel)}`;
+    document.getElementById('pdf-valor-kwh').textContent = `R$ ${formatarValorMonetario(valorKwh)}`;
+    document.getElementById('pdf-energia-gerada').textContent = `${energiaGerada} kWh`;
+    document.getElementById('pdf-energia-consumida').textContent = `${energiaConsumida} kWh`;
+    document.getElementById('pdf-energia-enviada').textContent = `${energiaEnviada} kWh`;
+    document.getElementById('pdf-total-consumido').textContent = `${totalConsumido} kWh`;
+    document.getElementById('pdf-total-acumulado').textContent = `${totalAcumulado} kWh`;
+    document.getElementById('pdf-retorno-acumulado').textContent = `R$ ${formatarValorMonetario(retornoAcumulado)}`;
+
+    // Preencher a tabela "Recebimento (R$)"
+    const recebimentoTableBody = document.getElementById('pdf-recebimentoTableBody');
+    recebimentoTableBody.innerHTML = ''; // Limpar a tabela
+    for (let i = 0; i < historicoData.labels.length; i++) {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td>${historicoData.labels[i]}</td><td>R$ ${formatarValorMonetario(historicoData.valores[i])}</td>`;
+        recebimentoTableBody.appendChild(row);
+    }
+}
+
+// Função para gerar o PDF
+function generatePDF() {
+    // Capturar os valores dos campos de entrada
+    const nomeInvestidor = document.getElementById('nome-investidor').value || 'Investidor Não Informado';
+    const leituraAnterior = document.getElementById('leitura-anterior').value;
+    const leituraAtual = document.getElementById('leitura-atual').value;
+    const proximaLeitura = document.getElementById('proxima-leitura').value;
+    const mesReferencia = formatarMesReferencia(document.getElementById('mes-referencia').value);
+    const valorCredito = document.getElementById('valor-credito').value || '';
+    const valorLocacao = document.getElementById('valor-locacao').value || '';
+    const faturaCopel = document.getElementById('fatura-copel').value || '';
+    const valorKwh = document.getElementById('valor-kwh').value || '';
+    const energiaGerada = document.getElementById('energia-gerada').value || '';
+    const energiaConsumida = document.getElementById('energia-consumida').value || '';
+    const energiaEnviada = document.getElementById('energia-enviada').value || '';
+    const totalConsumido = document.getElementById('total-consumido').value || '';
+    const totalAcumulado = document.getElementById('total-acumulado').value || '';
+    const retornoAcumulado = document.getElementById('retorno-acumulado').value || '';
+
+    // Preencher o template do PDF com os valores, formatando as datas
+    document.getElementById('pdf-nome-investidor').textContent = nomeInvestidor;
+    document.getElementById('pdf-leitura-anterior').textContent = formatarData(leituraAnterior);
+    document.getElementById('pdf-leitura-atual').textContent = formatarData(leituraAtual);
+    document.getElementById('pdf-proxima-leitura').textContent = formatarData(proximaLeitura);
     document.getElementById('pdf-mes-referencia').textContent = mesReferencia;
     document.getElementById('pdf-valor-credito').textContent = `R$ ${formatarValorMonetario(valorCredito)}`;
     document.getElementById('pdf-valor-locacao').textContent = `R$ ${formatarValorMonetario(valorLocacao)}`;
@@ -160,65 +260,19 @@ function generatePDF() {
         recebimentoTableBody.appendChild(row);
     }
 
-    // Tornar o template visível temporariamente
-    const element = document.getElementById('pdf-template');
-    element.style.display = 'block';
-
     // Garantir que a logo seja carregada
     const logoImg = document.querySelector('#pdf-template .logo img');
     logoImg.src = './Assets/logoG.jpeg'; // Certifique-se de que o caminho está correto
-
-    // Inicializar gráfico no template do PDF (apenas o histórico)
-    let pdfHistoricoChart;
-    try {
-        pdfHistoricoChart = new Chart(document.getElementById('pdf-historicoChart'), {
-            type: 'bar',
-            data: {
-                labels: historicoData.labels.map(abreviarMes),
-                datasets: [{
-                    label: 'Histórico (R$)',
-                    data: historicoData.valores,
-                    backgroundColor: '#28A745',
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            font: {
-                                size: 8
-                            }
-                        }
-                    },
-                    x: {
-                        ticks: {
-                            font: {
-                                size: 8
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                }
-            }
-        });
-    } catch (error) {
-        console.error('Erro ao inicializar o gráfico no PDF:', error);
-    }
 
     // Inserir o QR Code (usando uma imagem estática)
     const qrCodeContainer = document.getElementById('qrcode');
     qrCodeContainer.innerHTML = ''; // Limpar qualquer conteúdo anterior
     const qrCodeImg = document.createElement('img');
-    qrCodeImg.src = './Assets/1.png'; // Substitua pelo caminho correto da sua imagem de QR Code
+    qrCodeImg.src = './Assets/2.png'; // Substitua pelo caminho correto da sua imagem de QR Code
     qrCodeContainer.appendChild(qrCodeImg);
 
-    // Aguardar renderização antes de gerar o PDF
+    // Gerar o PDF
+    const element = document.getElementById('pdf-template');
     setTimeout(() => {
         try {
             html2canvas(element, { 
@@ -244,22 +298,30 @@ function generatePDF() {
                     pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
                 }
 
-                // Usar o nome da usina como nome do arquivo
-                const nomeArquivo = `${nomeUsina.replace(/\s+/g, '_')}_relatorio.pdf`;
+                // Usar o nome do investidor como nome do arquivo
+                const nomeArquivo = `${nomeInvestidor.replace(/\s+/g, '_')}_relatorio.pdf`;
                 pdf.save(nomeArquivo);
-
-                // Ocultar o template e limpar o gráfico
-                element.style.display = 'none';
-                if (pdfHistoricoChart) {
-                    pdfHistoricoChart.destroy();
-                }
             }).catch(error => {
                 console.error('Erro ao gerar o PDF com html2canvas:', error);
-                element.style.display = 'none';
             });
         } catch (error) {
             console.error('Erro geral ao gerar o PDF:', error);
-            element.style.display = 'none';
         }
-    }, 2000); // Aumentado para 2000ms para garantir renderização
+    }, 1000); // Reduzido para 1000ms, já que a prévia já está visível
 }
+
+// Inicializar a prévia ao carregar a página
+document.addEventListener('DOMContentLoaded', () => {
+    updatePreview();
+
+    // Garantir que a logo seja carregada
+    const logoImg = document.querySelector('#pdf-template .logo img');
+    logoImg.src = './Assets/logoG.jpeg'; // Certifique-se de que o caminho está correto
+
+    // Inserir o QR Code (usando uma imagem estática)
+    const qrCodeContainer = document.getElementById('qrcode');
+    qrCodeContainer.innerHTML = ''; // Limpar qualquer conteúdo anterior
+    const qrCodeImg = document.createElement('img');
+    qrCodeImg.src = './Assets/2.png'; // Substitua pelo caminho correto da sua imagem de QR Code
+    qrCodeContainer.appendChild(qrCodeImg);
+});

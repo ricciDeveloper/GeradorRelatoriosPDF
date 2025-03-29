@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerador de Relatórios</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- <link rel="stylesheet" href="reset.css"> -->
 </head>
 <body>
     <!-- Contêiner Principal com Duas Metades -->
@@ -19,27 +18,27 @@
                 <div class="section readings">
                     <div class="input-group">
                         <label>Nome do investidor:</label>
-                        <input type="text" id="nome-investidor" placeholder="Nome do Investidor" oninput="updatePreview()">
+                        <input type="text" id="nome-investidor" placeholder="Nome do Investidor" oninput="updateChartsAndPreview()">
                     </div>
                     <div class="input-group">
                         <label>Leitura anterior:</label>
-                        <input type="date" id="leitura-anterior" oninput="updatePreview()">
+                        <input type="date" id="leitura-anterior" oninput="updateChartsAndPreview()">
                     </div>
                     <div class="input-group">
                         <label>Leitura atual:</label>
-                        <input type="date" id="leitura-atual" oninput="updatePreview()">
+                        <input type="date" id="leitura-atual" oninput="updateChartsAndPreview()">
                     </div>
                     <div class="input-group">
                         <label>Próxima leitura:</label>
-                        <input type="date" id="proxima-leitura" oninput="updatePreview()">
+                        <input type="date" id="proxima-leitura" oninput="updateChartsAndPreview()">
                     </div>
                     <div class="input-group">
                         <label>Mês de referência:</label>
-                        <input type="month" id="mes-referencia" oninput="updatePreview()">
+                        <input type="month" id="mes-referencia" oninput="updateChartsAndPreview()">
                     </div>
                     <div class="input-group">
                         <label>Valor do crédito em conta:</label>
-                        <input type="text" id="valor-credito" placeholder="R$" oninput="updatePreview()">
+                        <input type="text" id="valor-credito" placeholder="R$" oninput="updateChartsAndPreview()">
                     </div>
                 </div>
 
@@ -47,39 +46,39 @@
                 <div class="section values">
                     <div class="input-group">
                         <label>Valor da locação:</label>
-                        <input type="text" id="valor-locacao" placeholder="R$" oninput="updatePreview()">
+                        <input type="text" id="valor-locacao" placeholder="R$" oninput="updateChartsAndPreview()">
                     </div>
                     <div class="input-group">
                         <label>Fatura Concessionária:</label>
-                        <input type="text" id="fatura-copel" placeholder="R$" oninput="updatePreview()">
+                        <input type="text" id="fatura-copel" placeholder="R$" oninput="updateChartsAndPreview()">
                     </div>
                     <div class="input-group">
                         <label>Valor do kWh:</label>
-                        <input type="text" id="valor-kwh" placeholder="R$" oninput="updatePreview()">
+                        <input type="text" id="valor-kwh" placeholder="R$" oninput="updateChartsAndPreview()">
                     </div>
                     <div class="input-group">
                         <label>Energia gerada:</label>
-                        <input type="text" id="energia-gerada" placeholder="KWh" oninput="updatePreview()">
+                        <input type="text" id="energia-gerada" placeholder="KWh" oninput="updateChartsAndPreview()">
                     </div>
                     <div class="input-group">
                         <label>Energia consumida pelo próprio investidor:</label>
-                        <input type="text" id="energia-consumida" placeholder="KWh" oninput="updatePreview()">
+                        <input type="text" id="energia-consumida" placeholder="KWh" oninput="updateChartsAndPreview()">
                     </div>
                     <div class="input-group">
                         <label>Energia enviada para os cooperados:</label>
-                        <input type="text" id="energia-enviada" placeholder="KWh" oninput="updatePreview()">
+                        <input type="text" id="energia-enviada" placeholder="KWh" oninput="updateChartsAndPreview()">
                     </div>
                     <div class="input-group">
                         <label>Total consumido pelos cooperados:</label>
-                        <input type="text" id="total-consumido" placeholder="KWh" oninput="updatePreview()">
+                        <input type="text" id="total-consumido" placeholder="KWh" oninput="updateChartsAndPreview()">
                     </div>
                     <div class="input-group">
                         <label>Total acumulado pelos cooperados:</label>
-                        <input type="text" id="total-acumulado" placeholder="Saldo KWh" oninput="updatePreview()">
+                        <input type="text" id="total-acumulado" placeholder="Saldo KWh" oninput="updateChartsAndPreview()">
                     </div>
                     <div class="input-group">
                         <label>Retorno acumulado (R$):</label>
-                        <input type="text" id="retorno-acumulado" placeholder="R$" oninput="updatePreview()">
+                        <input type="text" id="retorno-acumulado" placeholder="R$" oninput="updateChartsAndPreview()">
                     </div>
                 </div>
 
@@ -123,7 +122,6 @@
                         </div>
                     </div>
 
-
                     <div class="title-contact">
                         <h1>Relatório do Investidor</h1>
                         <div class="contact">
@@ -132,11 +130,9 @@
                             <p>canalverdeenergia.com.br</p>
                         </div>
                     </div>
-                    
                 </div>
 
                 <div class="section readings">
-                    
                     <div class="readings-bottom">
                         <div class="input-group">
                             <label>Leitura anterior:</label>
@@ -248,11 +244,6 @@
                             <p>Leia o QR Code e saiba mais</p>
                         </div>
                     </div>
-                </div>
-
-                <div class="qr-code">
-                    <div id="qrcode"></div>
-                    <!-- <p>Leia o QR Code e saiba mais</p> -->
                 </div>
             </div>
         </div>

@@ -49,7 +49,7 @@ body {
 }
 
 .section {
-    margin-top: 20px;
+    margin-top: 1mm;
 }
 
 .readings, .values {
@@ -88,6 +88,7 @@ body {
     padding: 10px;
     border-radius: 5px;
     text-align: center;
+    height: 100%;
 }
 
 .chart-box p {
@@ -161,16 +162,20 @@ body {
 }
 
 .pdf-container .header {
+
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10mm;
+    gap: 1mm;
+    height: 20mm;
 }
 
 .pdf-container .logo {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+
 }
 
 .pdf-container .logo img {
@@ -212,26 +217,29 @@ body {
 
 .pdf-container .readings-top .input-group {
     background-color: #fff;
-    padding: 2mm 3mm;
+    padding: 2mm 2mm;
     border-radius: 2mm;
     border: 1px solid #000;
     text-align: center;
+    width: 70mm;
 }
 
 .pdf-container .readings-bottom {
     display: flex;
     justify-content: space-between;
-    gap: 3mm;
+    gap: 0.5mm;
+
 }
 
 .pdf-container .section.readings .input-group {
     background-color: #fff;
-    padding: 2mm 3mm;
+    padding: 2mm 2mm;
     border-radius: 2mm;
     border: 1px solid #000;
     text-align: center;
     flex: 1;
-    height:20mm ;
+    height:10mm;
+    width: auto;
 }
 
 .pdf-container .section.readings .input-group.credit-highlight {
@@ -294,15 +302,16 @@ body {
 
 .pdf-container .section.charts {
     margin-bottom: 5mm;
-    height: 50mm; /* Altura fixa para evitar expansão */
+    height: 72mm; /* Altura fixa para evitar expansão */
 }
 
 .pdf-container .chart-container {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 3mm;
-    height: 80mm;
+    gap: 2mm;
+    height: 77mm;
+    
 }
 
 .pdf-container .recebimento-table {
@@ -312,7 +321,7 @@ body {
     border: 1px solid #000;
     text-align: center;
     box-sizing: border-box;
-    height: 70mm;
+    height: 100%;
     overflow: hidden;
 
 }
@@ -329,6 +338,7 @@ body {
     width: 100%;
     border-collapse: collapse;
     font-size: 9pt;
+    
 }
 
 .pdf-container .recebimento-table th, .pdf-container .recebimento-table td {
@@ -393,15 +403,15 @@ body {
 }
 
 .pdf-container .section.differentials {
-    margin-top: 25mm; /* Aumentado para posicionar a seção mais abaixo */
+    margin-top: 10mm; /* Aumentado para posicionar a seção mais abaixo */
     margin-bottom: 5mm;
     width: 180mm; /* Espaço interno útil (210mm - 15mm de padding de cada lado) */
 }
 
 .pdf-container .section.differentials h2 {
-    font-size: 12pt;
+    font-size: 10pt;
     text-align: center;
-    margin-bottom: 3mm;
+    margin-bottom: 1mm;
     color: #333;
     font-weight: bold;
     text-transform: uppercase;
@@ -412,6 +422,7 @@ body {
     justify-content: space-between;
     gap: 3mm;
     margin-bottom: 3mm;
+    height: 30mm;
 }
 
 .pdf-container .differentials-row:first-child .differential-box {

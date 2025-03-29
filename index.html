@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerador de Relatórios</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="reset.css">
+    <!-- <link rel="stylesheet" href="reset.css"> -->
 </head>
 <body>
     <!-- Contêiner Principal com Duas Metades -->
@@ -113,8 +113,17 @@
             <div id="pdf-template" class="pdf-container">
                 <div class="header">
                     <div class="logo">
-                        <img src="./Assets/logoG.jpeg" alt="Canal Verde Logo">
+                        <img src="./Assets/logoG.png" alt="Canal Verde Logo">
                     </div>
+
+                    <div class="readings-top">
+                        <div class="input-group">
+                            <label>Usina:</label>
+                            <span id="pdf-nome-investidor"></span>
+                        </div>
+                    </div>
+
+
                     <div class="title-contact">
                         <h1>Relatório do Investidor</h1>
                         <div class="contact">
@@ -123,15 +132,11 @@
                             <p>canalverdeenergia.com.br</p>
                         </div>
                     </div>
+                    
                 </div>
 
                 <div class="section readings">
-                    <div class="readings-top">
-                        <div class="input-group">
-                            <label>Usina:</label>
-                            <span id="pdf-nome-investidor"></span>
-                        </div>
-                    </div>
+                    
                     <div class="readings-bottom">
                         <div class="input-group">
                             <label>Leitura anterior:</label>
@@ -247,7 +252,7 @@
 
                 <div class="qr-code">
                     <div id="qrcode"></div>
-                    <p>Leia o QR Code e saiba mais</p>
+                    <!-- <p>Leia o QR Code e saiba mais</p> -->
                 </div>
             </div>
         </div>

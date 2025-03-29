@@ -262,7 +262,7 @@ function generatePDF() {
 
     // Garantir que a logo seja carregada
     const logoImg = document.querySelector('#pdf-template .logo img');
-    logoImg.src = './Assets/logoG.jpeg'; // Certifique-se de que o caminho está correto
+    logoImg.src = './Assets/logoG.png'; // Certifique-se de que o caminho está correto
 
     // Inserir o QR Code (usando uma imagem estática)
     const qrCodeContainer = document.getElementById('qrcode');
@@ -316,7 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Garantir que a logo seja carregada
     const logoImg = document.querySelector('#pdf-template .logo img');
-    logoImg.src = './Assets/logoG.jpeg'; // Certifique-se de que o caminho está correto
+    logoImg.src = './Assets/logoG.png'; // Certifique-se de que o caminho está correto
 
     // Inserir o QR Code (usando uma imagem estática)
     const qrCodeContainer = document.getElementById('qrcode');

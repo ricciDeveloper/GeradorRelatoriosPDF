@@ -23,6 +23,15 @@ function abreviarMes(mes) {
     return mesesAbreviados[mes] || mes.toUpperCase().slice(0, 3);
 }
 
+// Função auxiliar para converter número do mês em nome completo
+function numeroParaMes(numeroMes) {
+    const meses = [
+        'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+        'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+    ];
+    return meses[parseInt(numeroMes) - 1] || numeroMes;
+}
+
 // Inicializar gráfico na interface de entrada (historicoChart)
 const historicoChart = new Chart(document.getElementById('historicoChart'), {
     type: 'bar',
@@ -123,7 +132,8 @@ function deleteHistorico() {
 
 // Função auxiliar para atualizar gráficos e prévia
 function updateChartsAndPreview() {
-    const mesReferencia = document.getElementById('mes-referencia').value.split('-')[1] || 'Atual';
+    const mesReferenciaInput = document.getElementById('mes-referencia').value.split('-'); // Ex: ["2025", "03"]
+    const mesReferencia = mesReferenciaInput.length > 1 ? numeroParaMes(mesReferenciaInput[1]) : 'Atual';
     const valorCredito = parseFloat(document.getElementById('valor-credito').value) || 0;
 
     // Preparar dados completos (11 históricos + mês vigente)
@@ -166,10 +176,12 @@ function formatarData(valor) {
     return '';
 }
 
-// Função para formatar valores monetários (ex.: 123.00 -> "123,00")
+// Função para formatar valores monetários (ex.: 0.50 -> "0,50")
 function formatarValorMonetario(valor) {
-    if (!valor) return '';
-    return parseFloat(valor).toFixed(2).replace('.', ',');
+    if (!valor && valor !== 0) return ''; // Retorna vazio se valor for undefined ou null
+    const numero = parseFloat(valor);
+    if (isNaN(numero)) return ''; // Retorna vazio se não for um número válido
+    return numero.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 // Função para atualizar a prévia em tempo real
@@ -223,7 +235,8 @@ function updatePreview() {
 
 // Função para gerar o PDF
 function generatePDF() {
-    const mesReferencia = document.getElementById('mes-referencia').value.split('-')[1] || 'Atual';
+    const mesReferenciaInput = document.getElementById('mes-referencia').value.split('-');
+    const mesReferencia = mesReferenciaInput.length > 1 ? numeroParaMes(mesReferenciaInput[1]) : 'Atual';
     const valorCredito = parseFloat(document.getElementById('valor-credito').value) || 0;
 
     // Preparar dados completos (11 históricos + mês vigente)
@@ -235,7 +248,7 @@ function generatePDF() {
     pdfHistoricoChart.data.datasets[0].data = fullValores;
     pdfHistoricoChart.update();
 
-    // Atualizar a tabela na prévia
+    // Atualizar a prévia
     updatePreview();
 
     // Garantir que a logo seja carregada
@@ -253,7 +266,7 @@ function generatePDF() {
     setTimeout(() => {
         const element = document.getElementById('pdf-template');
         html2canvas(element, { 
-            scale: 3, // Aumentado para melhorar a resolução
+            scale: 2.5, // Aumentado para melhorar a resolução
             useCORS: true, // Para carregar imagens externas
             logging: true // Para depuração
         }).then(canvas => {
@@ -285,30 +298,8 @@ function generatePDF() {
     }, 1500); // Aumentado para garantir que o gráfico esteja renderizado
 }
 
-// // Função para pré-preencher os campos com dados do OCR
-// function preencherDadosOCR() {
-//     document.getElementById('nome-investidor').value = 'USINA DO JOÃO - UC420420';
-//     document.getElementById('leitura-anterior').value = '2025-01-01'; // Corrigido de 20205 para 2025
-//     document.getElementById('leitura-atual').value = '2025-01-02';
-//     document.getElementById('proxima-leitura').value = '2025-01-03';
-//     document.getElementById('mes-referencia').value = '2025-03';
-//     document.getElementById('valor-credito').value = '1000.00';
-//     document.getElementById('valor-locacao').value = '125.00';
-//     document.getElementById('fatura-copel').value = '120.00';
-//     document.getElementById('valor-kwh').value = '0.00';
-//     document.getElementById('energia-gerada').value = '12000';
-//     document.getElementById('energia-consumida').value = '1000';
-//     document.getElementById('energia-enviada').value = '11000';
-//     document.getElementById('total-consumido').value = '10000';
-//     document.getElementById('total-acumulado').value = '1000';
-//     document.getElementById('retorno-acumulado').value = ''; // Não fornecido no OCR
-// }
-
 // Inicializar a prévia ao carregar a página
 document.addEventListener('DOMContentLoaded', () => {
-    // Pré-preencher os campos com os dados do OCR
-    // preencherDadosOCR();
-
     // Atualizar gráficos e prévia com os dados preenchidos
     updateChartsAndPreview();
 

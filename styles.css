@@ -28,8 +28,9 @@ body {
     overflow-y: auto;
     background-color: #e6e6e6;
     display: flex;
-    justify-content: center; /* Centraliza a prévia horizontalmente */
-    align-items: flex-start; /* Alinha a prévia no topo */
+    flex-direction: column; /* Alterado para column para incluir o footer */
+    justify-content: flex-start; /* Alinha o conteúdo no topo */
+    align-items: center; /* Centraliza horizontalmente */
 }
 
 /* Estilo da Interface de Entrada */
@@ -89,12 +90,15 @@ body {
     border-radius: 5px;
     text-align: center;
     height: 100%;
+    background-color: #1C2526;
 }
 
 .chart-box p {
     color: #333;
     font-size: 12px;
     margin-bottom: 10px;
+    color: #fff;
+    font-weight: bold;
 }
 
 .chart-controls {
@@ -151,7 +155,6 @@ body {
     box-sizing: border-box;
     position: relative;
     font-family: Arial, sans-serif;
-    border: 3px solid red; /* Mantido conforme seu código */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra para destacar a prévia */
 }
 
@@ -469,4 +472,18 @@ body {
     color: #333;
     font-weight: bold;
     text-transform: uppercase;
+}
+
+/* Estilo do rodapé apenas na interface web */
+.web-footer {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px; /* Espaço acima do rodapé */
+}
+
+.web-footer p {
+    font-size: 12px; /* Tamanho ajustado para a interface web */
+    color: #333;
+    margin: 0;
+    font-family: Arial, sans-serif;
 }

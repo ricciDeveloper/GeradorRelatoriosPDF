@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerador de Relatórios</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" sizes="16x16"  href="./Assets/favicons/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
 </head>
 <body>
     <!-- Contêiner Principal com Duas Metades -->
@@ -21,27 +24,27 @@
                         <input type="text" id="nome-investidor" placeholder="Nome do Investidor" oninput="updateChartsAndPreview()">
                     </div>
                     <div class="input-group">
-                        <label>Leitura anterior:</label>
-                        <input type="date" id="leitura-anterior" oninput="updateChartsAndPreview()">
+                        <label>Valor do crédito em conta:</label>
+                        <input type="text" id="valor-credito" placeholder="R$" oninput="updateChartsAndPreview()">
                     </div>
-                    <div class="input-group">
-                        <label>Leitura atual:</label>
-                        <input type="date" id="leitura-atual" oninput="updateChartsAndPreview()">
-                    </div>
-                    <div class="input-group">
-                        <label>Próxima leitura:</label>
-                        <input type="date" id="proxima-leitura" oninput="updateChartsAndPreview()">
-                    </div>
+                    
                     <div class="input-group">
                         <label>Mês de referência:</label>
                         <input type="month" id="mes-referencia" oninput="updateChartsAndPreview()">
                     </div>
-                    <div class="input-group">
-                        <label>Valor do crédito em conta:</label>
-                        <input type="text" id="valor-credito" placeholder="R$" oninput="updateChartsAndPreview()">
-                    </div>
                 </div>
-
+                <div class="input-group">
+                    <label>Leitura anterior:</label>
+                    <input type="date" id="leitura-anterior" oninput="updateChartsAndPreview()">
+                </div>
+                <div class="input-group">
+                    <label>Leitura atual:</label>
+                    <input type="date" id="leitura-atual" oninput="updateChartsAndPreview()">
+                </div>
+                <div class="input-group">
+                    <label>Próxima leitura:</label>
+                    <input type="date" id="proxima-leitura" oninput="updateChartsAndPreview()">
+                </div>
                 <!-- Seção de Valores -->
                 <div class="section values">
                     <div class="input-group">
@@ -89,7 +92,21 @@
                         <div class="chart-controls">
                             <div class="input-group">
                                 <label>Mês:</label>
-                                <input type="text" id="mes-historico" placeholder="Mês">
+                                <input type="text" id="mes-historico" placeholder="Mês" list="meses-lista">
+                                <datalist id="meses-lista">
+                                    <option value="Janeiro">
+                                    <option value="Fevereiro">
+                                    <option value="Março">
+                                    <option value="Abril">
+                                    <option value="Maio">
+                                    <option value="Junho">
+                                    <option value="Julho">
+                                    <option value="Agosto">
+                                    <option value="Setembro">
+                                    <option value="Outubro">
+                                    <option value="Novembro">
+                                    <option value="Dezembro">
+                                </datalist>
                             </div>
                             <div class="input-group">
                                 <label>Valor:</label>
@@ -125,7 +142,7 @@
                     <div class="title-contact">
                         <h1>Relatório do Investidor</h1>
                         <div class="contact">
-                            <p>+55 (44) 9 9897-7059</p>
+                            <p>+55 (44) 9 9733-0292</p>
                             <p>gestao@canalverdeenergia.com.br</p>
                             <p>canalverdeenergia.com.br</p>
                         </div>
@@ -134,6 +151,14 @@
 
                 <div class="section readings">
                     <div class="readings-bottom">
+                        <div class="input-group credit-highlight">
+                            <label>Valor do crédito em conta:</label>
+                            <span id="pdf-valor-credito"></span>
+                        </div>
+                        <div class="input-group">
+                            <label>Mês de referência:</label>
+                            <span id="pdf-mes-referencia"></span>
+                        </div>
                         <div class="input-group">
                             <label>Leitura anterior:</label>
                             <span id="pdf-leitura-anterior"></span>
@@ -145,14 +170,6 @@
                         <div class="input-group">
                             <label>Próxima leitura:</label>
                             <span id="pdf-proxima-leitura"></span>
-                        </div>
-                        <div class="input-group">
-                            <label>Mês de referência:</label>
-                            <span id="pdf-mes-referencia"></span>
-                        </div>
-                        <div class="input-group credit-highlight">
-                            <label>Valor do crédito em conta:</label>
-                            <span id="pdf-valor-credito"></span>
                         </div>
                     </div>
                 </div>
@@ -246,6 +263,10 @@
                     </div>
                 </div>
             </div>
+            <!-- Rodapé movido para fora do pdf-container -->
+            <footer class="web-footer">
+                <p>@Desenvolvido por João Ricci</p>
+            </footer>
         </div>
     </div>
 

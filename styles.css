@@ -223,6 +223,7 @@ body {
     border: 1px solid #000;
     text-align: center;
     width: 70mm;
+    font-size: 8pt;
 }
 
 .pdf-container .readings-bottom {
